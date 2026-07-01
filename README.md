@@ -1,4 +1,5 @@
 # Dogsound Hackathon
+<img width="970" height="663" alt="개솔" src="https://github.com/user-attachments/assets/4cfbd697-ef08-4a4f-bf2b-6532876f869c" />
 
 Live input-to-agent processor plus a generated Phaser game demo.
 
