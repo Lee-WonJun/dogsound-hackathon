@@ -8,6 +8,29 @@ Live input-to-agent processor plus a generated Phaser game demo.
 - Full game interpretation log: [docs/ANALYSIS.md](./docs/ANALYSIS.md)
 - Processor documentation: [processor/README.md](./processor/README.md)
 
+## PoC Notes
+
+This started as a PoC inspired by Caleb Leak's
+[I Taught My Dog to Vibe Code Games](https://www.calebleak.com/posts/dog-game/)
+and Korea's voice-coding hackathon
+[천하제일 입코딩 대회](https://lipcoding.kr/).
+
+The current version proves the rough loop: microphone input becomes compact
+text, the agent interprets it as game design direction, and a Phaser game gets
+generated into a deployable static site. The tokenizer is intentionally rough
+and vibe-coded for the PoC; it is not claiming to decode any real language.
+
+After trying the process end to end, the weak point is clear: the agent keeps
+making games, but the result can be impossible to clear. The next serious work
+is not just prompt text. The harness needs sharper feedback: automated
+playability checks, win-condition verification, agent-visible screenshots,
+possibly scripted input playback, and a loop that rejects builds that cannot be
+completed.
+
+That is also why this feels like it could become a real "dogsound hackathon":
+the funny part is the input, but the hard part is the feedback system that turns
+that input into something playable.
+
 ## What This Contains
 
 The `processor/` folder records microphone input, segments it by silence,
