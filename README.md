@@ -1,47 +1,45 @@
-# Dogsound Hackathon
+# [개ː소리]
+
 <img width="970" height="663" alt="개솔" src="https://github.com/user-attachments/assets/4cfbd697-ef08-4a4f-bf2b-6532876f869c" />
 
-Live input-to-agent processor plus a generated Phaser game demo.
+개소리를 입력으로 받아 코딩 에이전트에게 게임을 만들게 하는 PoC입니다.
 
-- GitHub Pages demo: https://lee-wonjun.github.io/dogsound-hackathon/
-- Generated game source: [docs/](./docs/)
-- Full game interpretation log: [docs/ANALYSIS.md](./docs/ANALYSIS.md)
-- Processor documentation: [processor/README.md](./processor/README.md)
+[English README](./README.en.md)
 
-## PoC Notes
+- 데모: https://lee-wonjun.github.io/dogsound-hackathon/
+- 생성된 게임 소스: [docs/](./docs/)
+- 게임 해석 기록: [docs/ANALYSIS.md](./docs/ANALYSIS.md)
+- 프로세서 문서: [processor/README.md](./processor/README.md)
 
-This started as a PoC inspired by Caleb Leak's
-[I Taught My Dog to Vibe Code Games](https://www.calebleak.com/posts/dog-game/)
-and Korea's voice-coding hackathon
-[천하제일 입코딩 대회](https://lipcoding.kr/).
+## 이게 뭐냐
 
-The current version proves the rough loop: microphone input becomes compact
-text, the agent interprets it as game design direction, and a Phaser game gets
-generated into a deployable static site. The tokenizer is intentionally rough
-and vibe-coded for the PoC; it is not claiming to decode any real language.
+`processor/`는 마이크 입력을 실시간으로 녹음하고, 침묵 구간 기준으로 입력 덩어리를 나눈 뒤, 그 입력을 짧은 텍스트로 바꿔 Codex 또는 Claude Code에 넘깁니다.
 
-After trying the process end to end, the weak point is clear: the agent keeps
-making games, but the result can be impossible to clear. The next serious work
-is not just prompt text. The harness needs sharper feedback: automated
-playability checks, win-condition verification, agent-visible screenshots,
-possibly scripted input playback, and a loop that rejects builds that cannot be
-completed.
+`docs/`에는 이 프로세스로 만든 Phaser 게임이 들어 있습니다. GitHub Pages가 `/docs`를 그대로 서빙하도록 배치했습니다.
 
-That is also why this feels like it could become a real "dogsound hackathon":
-the funny part is the input, but the hard part is the feedback system that turns
-that input into something playable.
+## 영감
 
-## What This Contains
+이 PoC는 Caleb Leak의 [I Taught My Dog to Vibe Code Games](https://www.calebleak.com/posts/dog-game/)와 한국의 음성 코딩 해커톤 [천하제일 입코딩 대회](https://lipcoding.kr/)에서 영감을 받았습니다.
 
-The `processor/` folder records microphone input, segments it by silence,
-turns each captured utterance into compact text input, and sends that input to
-Codex or Claude Code with open permissions.
+Caleb Leak의 글에서 중요한 부분은 “의미 없는 입력” 자체가 아니라, 그 입력을 게임 기획으로 받아들이게 하는 프롬프트와 피드백 루프였습니다. 입코딩 대회 쪽에서는 키보드 대신 목소리로 개발하는 해커톤 형식이 힌트가 됐습니다.
 
-The `docs/` folder contains the generated browser game from
-`/home/dldnjs1013/projects/game`. It is arranged as a static site so GitHub
-Pages can serve it directly from `/docs`.
+그래서 이 프로젝트는 “개소리로 게임 만들기”를 해볼 수 있는 작은 실험입니다. 지금은 토크나이저도 PoC용으로 대충 바이브한 상태라, 진짜 언어를 해독한다고 주장하지 않습니다.
 
-## Run The Processor
+## 지금 해본 결과
+
+프로세스를 끝까지 돌려보니 게임은 계속 만들어집니다. 다만 아직 하네스가 약해서, 생성된 게임이 클리어 불가능한 상태로 끝나는 경우가 있습니다.
+
+다음으로 필요한 건 프롬프트를 더 길게 쓰는 게 아니라 피드백 시스템입니다.
+
+- 자동 플레이 가능성 검사
+- 승리 조건 도달 가능성 검사
+- 에이전트가 볼 수 있는 스크린샷
+- 스크립트된 입력 재생
+- 클리어 불가능한 빌드를 거절하고 다시 고치게 하는 루프
+
+이 부분만 제대로 깎으면 진짜 “개소리 해커톤”도 열 수 있을 것 같습니다. 웃긴 건 입력이지만, 핵심은 그 입력을 플레이 가능한 결과물로 바꾸는 피드백 루프입니다.
+
+## 프로세서 실행
 
 ```bash
 cd /home/dldnjs1013/projects/dogsound
@@ -51,7 +49,7 @@ python -m pip install -r processor/requirements.txt
 python -m processor doctor
 ```
 
-Example live run with GPT-5.5 low reasoning:
+GPT-5.5 low reasoning으로 실행하는 예시:
 
 ```bash
 python -m processor listen \
@@ -65,16 +63,16 @@ python -m processor listen \
   --agent-idle-timeout-seconds 0
 ```
 
-## Run The Demo Game Locally
+## 데모 게임 로컬 실행
 
 ```bash
 cd docs
 python3 -m http.server 4174
 ```
 
-Open `http://localhost:4174`.
+브라우저에서 `http://localhost:4174`를 엽니다.
 
-Checks:
+체크:
 
 ```bash
 cd docs
@@ -82,12 +80,11 @@ npm test
 npm run build
 ```
 
-## Analysis Example
+## 해석 기록 예시
 
-The generated game keeps a project-facing interpretation record before
-implementation changes. Full history is in [docs/ANALYSIS.md](./docs/ANALYSIS.md).
+생성된 게임은 구현 전에 “이번 입력을 어떻게 게임 요구사항으로 읽었는지”를 남깁니다. 전체 기록은 [docs/ANALYSIS.md](./docs/ANALYSIS.md)에 있습니다.
 
-Example excerpt:
+예시:
 
 ```md
 # Input Analysis
@@ -107,5 +104,4 @@ Build `Plan Z: Tunk`, a small vertical action-puzzle where the player gathers pl
 
 ## GitHub Pages
 
-This repository is intended to publish GitHub Pages from the `main` branch
-`/docs` directory.
+이 저장소는 `main` 브랜치의 `/docs` 디렉터리를 GitHub Pages로 배포합니다.
