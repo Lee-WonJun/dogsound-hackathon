@@ -1,0 +1,28 @@
+{
+  "audio": {
+    "sample_rate": 16000,
+    "frame_ms": 40,
+    "silence_ms": 900,
+    "min_utterance_ms": 120,
+    "auto_threshold": true,
+    "calibration_ms": 1200,
+    "start_threshold": 0.015,
+    "stop_threshold": 0.010
+  },
+  "agent": {
+    "name": "codex",
+    "workspace": ".",
+    "open_permissions": true,
+    "dry_run": false,
+    "model": null,
+    "reasoning_effort": null,
+    "timeout_seconds": 600,
+    "idle_timeout_seconds": 120
+  },
+  "prompt": {
+    "context": ""
+  },
+  "logging": {
+    "path": null
+  }
+}
