@@ -1,4 +1,6 @@
 # [개ː소리]
+<img width="597" height="151" alt="image" src="https://github.com/user-attachments/assets/f23ff6bf-f916-4e22-bf8c-bc3407a59eae" />
+
 
 <img width="970" height="663" alt="개솔" src="https://github.com/user-attachments/assets/4cfbd697-ef08-4a4f-bf2b-6532876f869c" />
 
